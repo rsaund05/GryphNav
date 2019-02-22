@@ -15,8 +15,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Prefer larger title in navbar
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
     }
 
-
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func optionsButtonPressed(_ sender: UIBarButtonItem) {
+        print("Options pressed!")
+    }
+    
 }
 
