@@ -17,7 +17,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //Prefer larger title in navbar
-        navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = "GryphNav"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
     }
 
