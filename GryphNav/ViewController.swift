@@ -19,7 +19,8 @@ class ViewController: UIViewController {
         //Prefer larger title in navbar
         self.title = "GryphNav"
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        
+        let optionsButton = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(optionsMenu))
+        self.navigationItem.rightBarButtonItem = optionsButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +29,10 @@ class ViewController: UIViewController {
     
     @IBAction func optionsButtonPressed(_ sender: UIBarButtonItem) {
         print("Options pressed!")
+    }
+    
+    @objc func optionsMenu(){
+        
     }
     
 }
