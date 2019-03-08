@@ -13,7 +13,9 @@
 		D41C5724220CBEAD009CBF0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41C5723220CBEAD009CBF0A /* Assets.xcassets */; };
 		D41C5727220CBEAD009CBF0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41C5725220CBEAD009CBF0A /* LaunchScreen.storyboard */; };
 		D41C5732220CBEAD009CBF0A /* GryphNavTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41C5731220CBEAD009CBF0A /* GryphNavTests.swift */; };
-		D4E7B5602230C35800283092 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E7B55F2230C35800283092 /* OptionsViewController.swift */; };
+		D4E7B5682231C25E00283092 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E7B5672231C25E00283092 /* OptionsViewController.swift */; };
+		D4E7B56C2231F46A00283092 /* map.geojson in Resources */ = {isa = PBXBuildFile; fileRef = D4E7B56B2231F46A00283092 /* map.geojson */; };
+		D4E7B5712232137B00283092 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7B5702232137B00283092 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +39,9 @@
 		D41C572D220CBEAD009CBF0A /* GryphNavTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GryphNavTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41C5731220CBEAD009CBF0A /* GryphNavTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GryphNavTests.swift; sourceTree = "<group>"; };
 		D41C5733220CBEAD009CBF0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D4E7B55F2230C35800283092 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		D4E7B5672231C25E00283092 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		D4E7B56B2231F46A00283092 /* map.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.geojson; path = ../../../../Downloads/map.geojson; sourceTree = "<group>"; };
+		D4E7B5702232137B00283092 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E7B5712232137B00283092 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +69,7 @@
 				D41C571B220CBEAB009CBF0A /* GryphNav */,
 				D41C5730220CBEAD009CBF0A /* GryphNavTests */,
 				D41C571A220CBEAB009CBF0A /* Products */,
+				D4E7B56F2232137A00283092 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,8 +87,9 @@
 			children = (
 				D41C571C220CBEAB009CBF0A /* AppDelegate.swift */,
 				D41C571E220CBEAB009CBF0A /* ViewController.swift */,
-				D4E7B55F2230C35800283092 /* OptionsViewController.swift */,
+				D4E7B5672231C25E00283092 /* OptionsViewController.swift */,
 				D41C5720220CBEAB009CBF0A /* Main.storyboard */,
+				D4E7B56B2231F46A00283092 /* map.geojson */,
 				D41C5723220CBEAD009CBF0A /* Assets.xcassets */,
 				D41C5725220CBEAD009CBF0A /* LaunchScreen.storyboard */,
 				D41C5728220CBEAD009CBF0A /* Info.plist */,
@@ -97,6 +104,14 @@
 				D41C5733220CBEAD009CBF0A /* Info.plist */,
 			);
 			path = GryphNavTests;
+			sourceTree = "<group>";
+		};
+		D4E7B56F2232137A00283092 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4E7B5702232137B00283092 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +164,11 @@
 				TargetAttributes = {
 					D41C5718220CBEAB009CBF0A = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					D41C572C220CBEAD009CBF0A = {
 						CreatedOnToolsVersion = 10.1;
@@ -180,6 +200,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E7B56C2231F46A00283092 /* map.geojson in Resources */,
 				D41C5727220CBEAD009CBF0A /* LaunchScreen.storyboard in Resources */,
 				D41C5724220CBEAD009CBF0A /* Assets.xcassets in Resources */,
 				D41C5722220CBEAB009CBF0A /* Main.storyboard in Resources */,
@@ -200,7 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4E7B5602230C35800283092 /* OptionsViewController.swift in Sources */,
+				D4E7B5682231C25E00283092 /* OptionsViewController.swift in Sources */,
 				D41C571F220CBEAB009CBF0A /* ViewController.swift in Sources */,
 				D41C571D220CBEAB009CBF0A /* AppDelegate.swift in Sources */,
 			);
