@@ -10,13 +10,15 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     let locationManager = CLLocationManager()
     
-    let regionRadius: CLLocationDistance = 210
+    let regionRadius: CLLocationDistance = 100
     let initialLocation = CLLocation(latitude: 43.53076529, longitude: -80.22899687)
     
     
@@ -26,9 +28,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         //Prefer larger title in navbar
         self.title = "GryphNav"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         let optionsButton = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(optionsButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = optionsButton
+        
+        
+        //Setting up search...
+        searchBar.delegate = self as UISearchBarDelegate
+        searchBar.isTranslucent = true
         
         //Setting up location stuff...
         centerMapOnLocation(location: initialLocation)
@@ -36,6 +43,38 @@ class ViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self as MKMapViewDelegate
         mapView?.showsUserLocation = true
         //mapView?.addOverlay(<#T##overlay: MKOverlay##MKOverlay#>)
+        addPolygon()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func addPolygon() {
+        var points = [CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069),
+                      CLLocationCoordinate2DMake(43.53087419186293, -80.2292275428772),
+                      CLLocationCoordinate2DMake(43.53082168735662, -80.22916316986084),
+                      CLLocationCoordinate2DMake(43.53075557050586, -80.2292463183403),
+                      CLLocationCoordinate2DMake(43.53066806279785, -80.22913366556166),
+                      CLLocationCoordinate2DMake(43.53064278276968, -80.22916585206985),
+                      CLLocationCoordinate2DMake(43.5306116688743, -80.22911757230759),
+                      CLLocationCoordinate2DMake(43.53082363196877, -80.22882521152496),
+                      CLLocationCoordinate2DMake(43.53095586544857, -80.22901564836502),
+                      CLLocationCoordinate2DMake(43.53090919484174, -80.22908538579941),
+                      CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069)]
+        let reyn: MKPolygon = MKPolygon(coordinates: &points, count: points.count)
+        
+        mapView.addOverlay(reyn)
+    }
+    
+    
+    //-80.22917121648788,
+    //43.5308994717941
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let polygonView = MKPolygonRenderer(overlay: overlay)
+        polygonView.fillColor = UIColor(red: 0, green: 0.847, blue: 1, alpha: 0.25)
+            
+        return polygonView
     }
     
     //Function for requesting location access
@@ -58,8 +97,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    //Options button handling
     @IBAction func optionsButtonPressed(_ sender: UIBarButtonItem) {
-        print("Options pressed!")
+        //print("Options pressed!")
         performSegue(withIdentifier: "Options", sender: nil)
     }
     
