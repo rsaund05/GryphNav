@@ -10,6 +10,50 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Location Search Table-->
+        <scene sceneID="Rh9-GI-qmR">
+            <objects>
+                <tableViewController storyboardIdentifier="LocationSearchTable" id="e1Y-sE-oQI" customClass="LocationSearchTable" customModule="GryphNav" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KwL-qi-pTM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="yvO-hZ-CU0" detailTextLabel="YKb-IC-P65" style="IBUITableViewCellStyleSubtitle" id="BmT-37-iOS">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BmT-37-iOS" id="qag-rc-ucs">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yvO-hZ-CU0">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YKb-IC-P65">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="e1Y-sE-oQI" id="DfV-wi-Dbk"/>
+                            <outlet property="delegate" destination="e1Y-sE-oQI" id="uUd-LV-wEz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Esd-J9-h5X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1148" y="-669"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -21,31 +65,23 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PAz-LL-zFr">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
-                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="7cg-Bb-y2K">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7cg-Bb-y2K" firstAttribute="trailing" secondItem="PAz-LL-zFr" secondAttribute="trailing" id="Ah7-2v-pA4"/>
-                            <constraint firstItem="PAz-LL-zFr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="KbO-Gw-U5e"/>
-                            <constraint firstItem="7cg-Bb-y2K" firstAttribute="leading" secondItem="PAz-LL-zFr" secondAttribute="leading" id="LCI-k7-HeQ"/>
-                            <constraint firstItem="PAz-LL-zFr" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="LzP-dl-gMA"/>
-                            <constraint firstAttribute="trailing" secondItem="PAz-LL-zFr" secondAttribute="trailing" id="vDV-5J-Qtl"/>
-                            <constraint firstItem="7cg-Bb-y2K" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xFE-nj-6dU"/>
-                            <constraint firstItem="PAz-LL-zFr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-44" id="zqu-zh-njL"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="0gS-pP-x9b"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3G8-jZ-B9p"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="E6p-5p-cuW"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-44" id="Nds-Bj-rdo"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="PpP-gw-Qfl"/>
+                            <constraint firstAttribute="trailing" secondItem="PAz-LL-zFr" secondAttribute="trailing" id="ZzY-H7-lNy"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="aPk-gK-VjI"/>
+                            <constraint firstItem="PAz-LL-zFr" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="p58-jL-mf0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Qfk-Uf-cWD"/>
                     <connections>
                         <outlet property="mapView" destination="PAz-LL-zFr" id="GBK-ka-GC4"/>
-                        <outlet property="searchBar" destination="7cg-Bb-y2K" id="Jsc-qE-sgf"/>
                         <segue destination="T2H-VB-htG" kind="show" identifier="Options" id="GKh-ss-iQm"/>
                     </connections>
                 </viewController>

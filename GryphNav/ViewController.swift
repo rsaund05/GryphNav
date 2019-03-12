@@ -18,6 +18,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
     
     let locationManager = CLLocationManager()
     
+    var resultSearchController:UISearchController? = nil
+    
     let regionRadius: CLLocationDistance = 100
     let initialLocation = CLLocation(latitude: 43.53076529, longitude: -80.22899687)
     
@@ -28,14 +30,24 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         
         //Prefer larger title in navbar
         self.title = "GryphNav"
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        //self.navigationController?.navigationBar.prefersLargeTitles = true
         let optionsButton = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(optionsButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = optionsButton
         
         
         //Setting up search...
-        searchBar.delegate = self as UISearchBarDelegate
-        searchBar.isTranslucent = true
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search UofG Locations"
+        navigationItem.titleView = resultSearchController?.searchBar
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
         
         //Setting up location stuff...
         centerMapOnLocation(location: initialLocation)
@@ -46,9 +58,9 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         addPolygon()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        searchBar.resignFirstResponder()
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        searchBar.resignFirstResponder()
+//    }
     
     func addPolygon() {
         var points = [CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069),
