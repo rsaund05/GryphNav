@@ -114,11 +114,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-Ss-nTn">
-                                                    <rect key="frame" x="310" y="7" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-Ss-nTn">
+                                                    <rect key="frame" x="308" y="7" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="OWk-Ss-nTn" firstAttribute="top" secondItem="ESf-tF-QAK" secondAttribute="top" constant="7" id="0zv-B8-ZeR"/>
+                                                <constraint firstAttribute="trailing" secondItem="OWk-Ss-nTn" secondAttribute="trailing" constant="18" id="YVO-wI-27f"/>
+                                                <constraint firstAttribute="bottom" secondItem="OWk-Ss-nTn" secondAttribute="bottom" constant="5.5" id="q4I-em-kZf"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kzk-3y-bwd">
@@ -135,11 +139,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IzT-pH-PTE">
-                                                    <rect key="frame" x="310" y="6" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IzT-pH-PTE">
+                                                    <rect key="frame" x="308" y="6" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="IzT-pH-PTE" firstAttribute="top" secondItem="BWd-X6-QbC" secondAttribute="top" constant="6" id="Fb5-m8-zDo"/>
+                                                <constraint firstAttribute="bottom" secondItem="IzT-pH-PTE" secondAttribute="bottom" constant="6.5" id="OJV-hF-5So"/>
+                                                <constraint firstAttribute="trailing" secondItem="IzT-pH-PTE" secondAttribute="trailing" constant="18" id="mcb-fe-zOP"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

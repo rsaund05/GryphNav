@@ -16,6 +16,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var reyn:MKPolygon? = nil
+    
     let locationManager = CLLocationManager()
     
     var resultSearchController:UISearchController? = nil
@@ -30,11 +32,10 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         
         //Prefer larger title in navbar
         self.title = "GryphNav"
-        
-        //self.navigationController?.navigationBar.prefersLargeTitles = true
+       
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         let optionsButton = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(optionsButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = optionsButton
-        
         
         //Setting up search...
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
@@ -43,11 +44,11 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search UofG Locations"
-        navigationItem.titleView = resultSearchController?.searchBar
+        self.navigationItem.searchController = resultSearchController
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
-        
+        locationSearchTable.mapView = mapView //Passes along the handle for the mapview to locationsearchtable
         
         //Setting up location stuff...
         centerMapOnLocation(location: initialLocation)
@@ -74,11 +75,14 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
                       CLLocationCoordinate2DMake(43.53095586544857, -80.22901564836502),
                       CLLocationCoordinate2DMake(43.53090919484174, -80.22908538579941),
                       CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069)]
-        let reyn: MKPolygon = MKPolygon(coordinates: &points, count: points.count)
+        reyn = MKPolygon(coordinates: &points, count: points.count)
         
-        mapView.addOverlay(reyn)
+        mapView.addOverlay(reyn!)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
     //-80.22917121648788,
     //43.5308994717941
@@ -105,9 +109,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    
     
     //Options button handling
     @IBAction func optionsButtonPressed(_ sender: UIBarButtonItem) {
