@@ -14,17 +14,15 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    
     var reyn:MKPolygon? = nil
     
     let locationManager = CLLocationManager()
     
     var resultSearchController:UISearchController? = nil
     
-    let regionRadius: CLLocationDistance = 100
+    let regionRadius: CLLocationDistance = 1100
     let initialLocation = CLLocation(latitude: 43.53076529, longitude: -80.22899687)
-    
+    let centreMapLocation = CLLocation(latitude: 43.531108, longitude: -80.226450)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +35,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         let optionsButton = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(optionsButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = optionsButton
         
-        //Setting up search...
+        //Setting up search and location...
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -51,7 +49,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         locationSearchTable.mapView = mapView //Passes along the handle for the mapview to locationsearchtable
         
         //Setting up location stuff...
-        centerMapOnLocation(location: initialLocation)
+        centerMapOnLocation(location: centreMapLocation)
         requestLocationAccess()
         mapView.delegate = self as MKMapViewDelegate
         mapView?.showsUserLocation = true
@@ -62,6 +60,10 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        searchBar.resignFirstResponder()
 //    }
+    
+    func searchBarIsEmpty() -> Bool {
+            return resultSearchController?.searchBar.text?.isEmpty ?? true
+    }
     
     func addPolygon() {
         var points = [CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069),
