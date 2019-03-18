@@ -13,7 +13,7 @@
 		D41C5724220CBEAD009CBF0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41C5723220CBEAD009CBF0A /* Assets.xcassets */; };
 		D41C5727220CBEAD009CBF0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41C5725220CBEAD009CBF0A /* LaunchScreen.storyboard */; };
 		D41C5732220CBEAD009CBF0A /* GryphNavTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41C5731220CBEAD009CBF0A /* GryphNavTests.swift */; };
-		D4D52E382238664E0002BE25 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D52E372238664E0002BE25 /* LocationSearchTable.swift */; };
+		D489DC6D224024C800182EB3 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D489DC6C224024C800182EB3 /* LocationTableViewController.swift */; };
 		D4E7B5712232137B00283092 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E7B5702232137B00283092 /* MapKit.framework */; };
 		D4E7B57A2233057000283092 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E7B5792233057000283092 /* OptionsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +39,7 @@
 		D41C572D220CBEAD009CBF0A /* GryphNavTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GryphNavTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D41C5731220CBEAD009CBF0A /* GryphNavTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GryphNavTests.swift; sourceTree = "<group>"; };
 		D41C5733220CBEAD009CBF0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D4D52E372238664E0002BE25 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
+		D489DC6C224024C800182EB3 /* LocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
 		D4E7B5702232137B00283092 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D4E7B5792233057000283092 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +88,7 @@
 				D41C571C220CBEAB009CBF0A /* AppDelegate.swift */,
 				D41C571E220CBEAB009CBF0A /* ViewController.swift */,
 				D4E7B5792233057000283092 /* OptionsViewController.swift */,
-				D4D52E372238664E0002BE25 /* LocationSearchTable.swift */,
+				D489DC6C224024C800182EB3 /* LocationTableViewController.swift */,
 				D41C5720220CBEAB009CBF0A /* Main.storyboard */,
 				D41C5723220CBEAD009CBF0A /* Assets.xcassets */,
 				D41C5725220CBEAD009CBF0A /* LaunchScreen.storyboard */,
@@ -220,10 +220,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D489DC6D224024C800182EB3 /* LocationTableViewController.swift in Sources */,
 				D4E7B57A2233057000283092 /* OptionsViewController.swift in Sources */,
 				D41C571F220CBEAB009CBF0A /* ViewController.swift in Sources */,
 				D41C571D220CBEAB009CBF0A /* AppDelegate.swift in Sources */,
-				D4D52E382238664E0002BE25 /* LocationSearchTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +385,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44H339GT83;
 				INFOPLIST_FILE = GryphNav/Info.plist;
@@ -394,6 +395,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.robertsaunders.GryphNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -403,6 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44H339GT83;
 				INFOPLIST_FILE = GryphNav/Info.plist;
@@ -412,6 +415,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.robertsaunders.GryphNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

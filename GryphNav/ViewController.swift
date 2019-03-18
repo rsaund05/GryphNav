@@ -14,6 +14,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    var matchingItems:[MKMapItem] = []
+    
     var reyn:MKPolygon? = nil
     
     let locationManager = CLLocationManager()
@@ -36,7 +38,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         self.navigationItem.rightBarButtonItem = optionsButton
         
         //Setting up search and location...
-        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationTableViewController") as! LocationTableViewController
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
         let searchBar = resultSearchController!.searchBar
@@ -123,6 +125,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    
+    
 //    func mapView(_ mapView: MKMapView, didAdd renderers: [MKOverlayRenderer]) {
 //        <#code#>
 //    }
