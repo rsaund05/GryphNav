@@ -22,7 +22,7 @@ class OptionsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "about", sender: nil)
-        print("\(indexPath)")
+        //print("\(indexPath)")
     }
     
     /*
