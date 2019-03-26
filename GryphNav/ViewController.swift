@@ -63,7 +63,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
         locationManager.startUpdatingLocation()
         mapView.delegate = self as MKMapViewDelegate
         mapView?.showsUserLocation = true
-        //mapView?.addOverlay(<#T##overlay: MKOverlay##MKOverlay#>)
+        
         //addPolygon()
     }
     
@@ -75,22 +75,22 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             return resultSearchController?.searchBar.text?.isEmpty ?? true
     }
     
-//    func addPolygon() {
-//        var points = [CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069),
-//                      CLLocationCoordinate2DMake(43.53087419186293, -80.2292275428772),
-//                      CLLocationCoordinate2DMake(43.53082168735662, -80.22916316986084),
-//                      CLLocationCoordinate2DMake(43.53075557050586, -80.2292463183403),
-//                      CLLocationCoordinate2DMake(43.53066806279785, -80.22913366556166),
-//                      CLLocationCoordinate2DMake(43.53064278276968, -80.22916585206985),
-//                      CLLocationCoordinate2DMake(43.5306116688743, -80.22911757230759),
-//                      CLLocationCoordinate2DMake(43.53082363196877, -80.22882521152496),
-//                      CLLocationCoordinate2DMake(43.53095586544857, -80.22901564836502),
-//                      CLLocationCoordinate2DMake(43.53090919484174, -80.22908538579941),
-//                      CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069)]
-//        reyn = MKPolygon(coordinates: &points, count: points.count)
-//
-//        mapView.addOverlay(reyn!)
-//    }
+    func addPolygon() {
+        var points = [CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069),
+                      CLLocationCoordinate2DMake(43.53087419186293, -80.2292275428772),
+                      CLLocationCoordinate2DMake(43.53082168735662, -80.22916316986084),
+                      CLLocationCoordinate2DMake(43.53075557050586, -80.2292463183403),
+                      CLLocationCoordinate2DMake(43.53066806279785, -80.22913366556166),
+                      CLLocationCoordinate2DMake(43.53064278276968, -80.22916585206985),
+                      CLLocationCoordinate2DMake(43.5306116688743, -80.22911757230759),
+                      CLLocationCoordinate2DMake(43.53082363196877, -80.22882521152496),
+                      CLLocationCoordinate2DMake(43.53095586544857, -80.22901564836502),
+                      CLLocationCoordinate2DMake(43.53090919484174, -80.22908538579941),
+                      CLLocationCoordinate2DMake(43.53094030858364, -80.22913634777069)]
+        reyn = MKPolygon(coordinates: &points, count: points.count)
+
+        mapView.addOverlay(reyn!)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -143,7 +143,10 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
             
             let rect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+            var tempReg = MKCoordinateRegion(rect)
+            tempReg.span.latitudeDelta = 0.0056
+            tempReg.span.longitudeDelta = 0.0056
+            self.mapView.setRegion(tempReg, animated: true)
         }
     }
     
