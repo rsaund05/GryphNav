@@ -33,6 +33,18 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("ALTITUDE: \(mapView.camera.altitude)")
+        //Checks if user has launched the app before, and if not, displays a welcome message
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            print("Not first launch.")
+        } else {
+            let testAlert = UIAlertController(title: "Welcome to GryphNav!", message: "Search for a building or location on the University of Guelph campus.", preferredStyle: .alert)
+            testAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(testAlert, animated: true)
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        }
         // Do any additional setup after loading the view, typically from a nib.
         
         //Prefer larger title in navbar
@@ -144,8 +156,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             
             let rect = route.polyline.boundingMapRect
             var tempReg = MKCoordinateRegion(rect)
-            tempReg.span.latitudeDelta = 0.0056
-            tempReg.span.longitudeDelta = 0.0056
+            tempReg.span.latitudeDelta = 0.006
+            tempReg.span.longitudeDelta = 0.006
             self.mapView.setRegion(tempReg, animated: true)
         }
     }
@@ -176,7 +188,6 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    
     
     
     //Options button handling
