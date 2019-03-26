@@ -145,7 +145,7 @@ extension LocationTableViewController: UISearchResultsUpdating {
     }
 }
 
-extension LocationTableViewController {
+extension LocationTableViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
