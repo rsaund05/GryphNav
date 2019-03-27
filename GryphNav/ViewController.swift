@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Foundation
 
 protocol HandleMapSearch{
     func dropPinZoomIn(placemark: MKPlacemark)
@@ -29,7 +30,7 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
     
     let regionRadius: CLLocationDistance = 1100
     let initialLocation = CLLocation(latitude: 43.53076529, longitude: -80.22899687)
-    let centreMapLocation = CLLocation(latitude: 43.531108, longitude: -80.226450)
+    let centreMapLocation = CLLocationCoordinate2D(latitude: 43.531108, longitude: -80.226450)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,9 +80,6 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
         //addPolygon()
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        searchBar.resignFirstResponder()
-//    }
     
     func searchBarIsEmpty() -> Bool {
             return resultSearchController?.searchBar.text?.isEmpty ?? true
@@ -108,6 +106,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
         super.didReceiveMemoryWarning()
     }
     
+    //Function for requesting a route from Apple Maps and overlaying that on the mapView
+    //Routes are drawn with start and end annotations
     func showRouteOnMap(startCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
         let sourcePlace = MKPlacemark(coordinate: startCoordinate)
         let destinationPlace = MKPlacemark(coordinate: destinationCoordinate)
@@ -196,8 +196,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
         performSegue(withIdentifier: "Options", sender: nil)
     }
     
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+    func centerMapOnLocation(location: CLLocationCoordinate2D) {
+        let coordinateRegion = MKCoordinateRegion(center: location, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
