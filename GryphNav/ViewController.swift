@@ -166,12 +166,14 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
     //43.5308994717941
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         
-        let polygonView = MKPolylineRenderer(overlay: overlay)
+        let polylineView = MKPolylineRenderer(overlay: overlay)
         //polygonView.fillColor = UIColor(red: 0, green: 0.847, blue: 1, alpha: 0.25)
-        polygonView.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
-        polygonView.lineWidth = 5.0
-        return polygonView
+        polylineView.strokeColor = UIColor(red: 17.0/255.0, green: 147.0/255.0, blue: 255.0/255.0, alpha: 1)
+        polylineView.lineWidth = 5.0
+        return polylineView
     }
+    
+    
     
     //Function for requesting location access
     func requestLocationAccess() {
@@ -227,11 +229,12 @@ extension ViewController: HandleMapSearch{
             let province = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(province)"
         }
-        print("MY LOCATION: \(self.locationManager.location!.coordinate)\nDESTINATION: \(placemark.coordinate)")
+        //print("MY LOCATION: \(self.locationManager.location!.coordinate)\nDESTINATION: \(placemark.coordinate)")
         let currLocation = self.locationManager.location!.coordinate
         let destLocation = placemark.coordinate
+        mapView.addAnnotation(annotation)
         self.showRouteOnMap(startCoordinate: currLocation, destinationCoordinate: destLocation)
-//        mapView.addAnnotation(annotation)
+        
 //        let span = MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)
 //        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
 //        mapView.setRegion(region, animated: true)

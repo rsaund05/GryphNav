@@ -140,6 +140,16 @@ extension LocationTableViewController: UISearchResultsUpdating {
                 return
             }
             self.matchingItems = response.mapItems
+            
+            //Removing any results from the request that are NOT in Guelph
+            for item in self.matchingItems {
+                //print("COUNTRYCODE: \(String(describing: item.placemark.locality))")
+                if(item.placemark.locality != "Guelph"){
+                    while let index = self.matchingItems.index(of: item) {
+                        self.matchingItems.remove(at: index)
+                    }
+                }
+            }
             self.tableView.reloadData()
         }
     }
