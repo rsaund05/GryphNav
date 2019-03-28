@@ -156,8 +156,8 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             
             let rect = route.polyline.boundingMapRect
             var tempReg = MKCoordinateRegion(rect)
-            tempReg.span.latitudeDelta = 0.006
-            tempReg.span.longitudeDelta = 0.006
+//            tempReg.span.latitudeDelta = 0.006
+//            tempReg.span.longitudeDelta = 0.006
             self.mapView.setRegion(tempReg, animated: true)
         }
     }
@@ -203,14 +203,12 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    
-//    func mapView(_ mapView: MKMapView, didAdd renderers: [MKOverlayRenderer]) {
-//        <#code#>
-//    }
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let userLocation: CLLocation = locations[0] as CLLocation
-//        let userCoordinate = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-//    }
+    //Warning will display if application fails to retrieve location
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let alert = UIAlertController(title: "Error Occurred", message: "Failed to retrieve location", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 extension ViewController: HandleMapSearch{
@@ -233,8 +231,25 @@ extension ViewController: HandleMapSearch{
         let currLocation = self.locationManager.location!.coordinate
         let destLocation = placemark.coordinate
         mapView.addAnnotation(annotation)
-        self.showRouteOnMap(startCoordinate: currLocation, destinationCoordinate: destLocation)
-        
+        let curLoc: CLGeocoder = CLGeocoder()
+        curLoc.reverseGeocodeLocation(self.locationManager.location!, completionHandler:{(placemarks, error) in
+            if(error != nil){
+                print("Reverse geocoding failed! ErrorCode: \(error!.localizedDescription)")
+            }
+            let loc = placemarks! as [CLPlacemark]
+            if(loc.count > 0) {
+                let loc = placemarks![0]
+                if(loc.locality == "Guelph"){
+                    print("User is in Guelph!")
+                     self.showRouteOnMap(startCoordinate: currLocation, destinationCoordinate: destLocation)
+                } else {
+                    //Alert the user that they need to be in guelph
+                    let alert = UIAlertController(title: "Oh no! You're not in Guelph!", message: "Routes will only be displayed if you are in Guelph", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                }
+            }
+        })
+        //print("MY LOCATION: \(self.locationManager.location!.)")
 //        let span = MKCoordinateSpan(latitudeDelta: 0.0045, longitudeDelta: 0.0045)
 //        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
 //        mapView.setRegion(region, animated: true)
