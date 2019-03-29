@@ -19,6 +19,19 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
 
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            mapView.removeAnnotations(mapView.annotations)
+            let locationTap = sender.location(in: mapView)
+            let tapCoordinate = mapView.convert(locationTap, toCoordinateFrom: mapView)
+           
+            //Since Apple doesnt expose the points of interest to developers in the API, I'm resorting to simply navigating to a generic annotation where the user taps, sorry Dennis!
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = tapCoordinate
+            mapView.addAnnotation(annotation)
+            
+        }
+    }
     //var matchingItems:[MKMapItem] = []
     var selectedPin:MKPlacemark? = nil
     
@@ -35,7 +48,6 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ALTITUDE: \(mapView.camera.altitude)")
         //Checks if user has launched the app before, and if not, displays a welcome message
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if launchedBefore  {
@@ -155,9 +167,10 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
             self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
             
             let rect = route.polyline.boundingMapRect
+            
             var tempReg = MKCoordinateRegion(rect)
-//            tempReg.span.latitudeDelta = 0.006
-//            tempReg.span.longitudeDelta = 0.006
+            tempReg.span.latitudeDelta = 0.007
+            tempReg.span.longitudeDelta = 0.007
             self.mapView.setRegion(tempReg, animated: true)
         }
     }
@@ -246,6 +259,7 @@ extension ViewController: HandleMapSearch{
                     //Alert the user that they need to be in guelph
                     let alert = UIAlertController(title: "Oh no! You're not in Guelph!", message: "Routes will only be displayed if you are in Guelph", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: true)
                 }
             }
         })
