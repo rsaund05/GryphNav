@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Foundation
+import Contacts
 
 protocol HandleMapSearch{
     func dropPinZoomIn(placemark: MKPlacemark)
@@ -18,17 +19,67 @@ protocol HandleMapSearch{
 class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    var tappedAnnotation:MKPointAnnotation? = nil
     
     @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
+            if( tappedAnnotation != nil){
+                
+            }
             mapView.removeAnnotations(mapView.annotations)
             let locationTap = sender.location(in: mapView)
             let tapCoordinate = mapView.convert(locationTap, toCoordinateFrom: mapView)
            
             //Since Apple doesnt expose the points of interest to developers in the API, I'm resorting to simply navigating to a generic annotation where the user taps, sorry Dennis!
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = tapCoordinate
-            mapView.addAnnotation(annotation)
+            tappedAnnotation = MKPointAnnotation()
+            tappedAnnotation?.coordinate = tapCoordinate
+//            mapView.addAnnotation(tappedAnnotation!)
+//            dropPinZoomIn(placemark: <#T##MKPlacemark#>)
+            let geoCoder = CLGeocoder()
+            
+            //Variables needed to construct MKPlacemark
+            var streetName: String = ""
+            var cityName: String = ""
+            var postName: String = ""
+            var countryName: String = ""
+            
+            let location = CLLocation(latitude: tapCoordinate.latitude, longitude: tapCoordinate.longitude)
+            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+                
+                // Place details
+                var placeMark: CLPlacemark!
+                placeMark = placemarks?[0]
+                
+                let coordinate = placeMark.location!.coordinate
+                
+                
+                // Location name
+                if let locationName = placeMark.location {
+                    //print(locationName)
+                }
+                // Street address
+                if let street = placeMark.thoroughfare {
+                    streetName = street
+                }
+                // City
+                if let city = placeMark.subAdministrativeArea {
+                    cityName = city
+                }
+                // Zip code
+                if let zip = placeMark.isoCountryCode {
+                    postName = zip
+                }
+                // Country
+                if let country = placeMark.country {
+                    countryName = country
+                }
+                
+                print("TAP: \(streetName), \(cityName), \(postName), \(countryName)")
+                
+                let place = MKPlacemark(coordinate: coordinate, addressDictionary: [CNPostalAddressStreetKey: streetName, CNPostalAddressCityKey: cityName, CNPostalAddressPostalCodeKey: postName, CNPostalAddressCountryKey: countryName])
+                
+                self.dropPinZoomIn(placemark: place)
+            })
             
         }
     }
@@ -95,6 +146,41 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
     
     func searchBarIsEmpty() -> Bool {
             return resultSearchController?.searchBar.text?.isEmpty ?? true
+    }
+    
+    //Function that converts latitude and longitude from a CLLocationCoordinate2D to a CLPlacemark
+    func convertLatLongToAddress(latitude:Double,longitude:Double){
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Location name
+            if let locationName = placeMark.location {
+                print(locationName)
+            }
+            // Street address
+            if let street = placeMark.thoroughfare {
+                print(street)
+            }
+            // City
+            if let city = placeMark.subAdministrativeArea {
+                print(city)
+            }
+            // Zip code
+            if let zip = placeMark.isoCountryCode {
+                print(zip)
+            }
+            // Country
+            if let country = placeMark.country {
+                print(country)
+            }
+        })
+        
     }
     
     func addPolygon() {
