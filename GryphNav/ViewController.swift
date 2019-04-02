@@ -24,62 +24,73 @@ class ViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, 
     @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             if( tappedAnnotation != nil){
+                let tapAlert = UIAlertController(title: "Clear route?", message: "A route already exists. Clear it?", preferredStyle: .alert)
+                tapAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {action in
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    self.mapView.removeOverlays(self.mapView.overlays)
+                    self.tappedAnnotation = nil
+                }))
+                tapAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {action in
+                    return
+                }))
+                self.present(tapAlert, animated: true)
+            } else {
+                let locationTap = sender.location(in: mapView)
+                let tapCoordinate = mapView.convert(locationTap, toCoordinateFrom: mapView)
+                
+                //Since Apple doesnt expose the points of interest to developers in the API, I'm resorting to simply navigating to a generic annotation where the user taps, sorry Dennis!
+                tappedAnnotation = MKPointAnnotation()
+                tappedAnnotation?.coordinate = tapCoordinate
+                //            mapView.addAnnotation(tappedAnnotation!)
+                //            dropPinZoomIn(placemark: <#T##MKPlacemark#>)
+                let geoCoder = CLGeocoder()
+                
+                //Variables needed to construct MKPlacemark
+                var streetName: String = ""
+                var cityName: String = ""
+                var postName: String = ""
+                var countryName: String = ""
+                
+                let location = CLLocation(latitude: tapCoordinate.latitude, longitude: tapCoordinate.longitude)
+                geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+                    
+                    // Place details
+                    var placeMark: CLPlacemark!
+                    placeMark = placemarks?[0]
+                    
+                    let coordinate = placeMark.location!.coordinate
+                    
+                    
+                    // Location name
+                    //                if let locationName = placeMark.location {
+                    //                    //print(locationName)
+                    //                }
+                    // Street address
+                    if let street = placeMark.thoroughfare {
+                        streetName = street
+                    }
+                    // City
+                    if let city = placeMark.subAdministrativeArea {
+                        cityName = city
+                    }
+                    // Zip code
+                    if let zip = placeMark.isoCountryCode {
+                        postName = zip
+                    }
+                    // Country
+                    if let country = placeMark.country {
+                        countryName = country
+                    }
+                    
+                    print("TAP: \(streetName), \(cityName), \(postName), \(countryName)")
+                    
+                    let place = MKPlacemark(coordinate: coordinate, addressDictionary: [CNPostalAddressStreetKey: streetName, CNPostalAddressCityKey: cityName, CNPostalAddressPostalCodeKey: postName, CNPostalAddressCountryKey: countryName])
+                    
+                    self.dropPinZoomIn(placemark: place)
+                })
                 
             }
-            mapView.removeAnnotations(mapView.annotations)
-            let locationTap = sender.location(in: mapView)
-            let tapCoordinate = mapView.convert(locationTap, toCoordinateFrom: mapView)
-           
-            //Since Apple doesnt expose the points of interest to developers in the API, I'm resorting to simply navigating to a generic annotation where the user taps, sorry Dennis!
-            tappedAnnotation = MKPointAnnotation()
-            tappedAnnotation?.coordinate = tapCoordinate
-//            mapView.addAnnotation(tappedAnnotation!)
-//            dropPinZoomIn(placemark: <#T##MKPlacemark#>)
-            let geoCoder = CLGeocoder()
-            
-            //Variables needed to construct MKPlacemark
-            var streetName: String = ""
-            var cityName: String = ""
-            var postName: String = ""
-            var countryName: String = ""
-            
-            let location = CLLocation(latitude: tapCoordinate.latitude, longitude: tapCoordinate.longitude)
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                
-                // Place details
-                var placeMark: CLPlacemark!
-                placeMark = placemarks?[0]
-                
-                let coordinate = placeMark.location!.coordinate
-                
-                
-                // Location name
-                if let locationName = placeMark.location {
-                    //print(locationName)
-                }
-                // Street address
-                if let street = placeMark.thoroughfare {
-                    streetName = street
-                }
-                // City
-                if let city = placeMark.subAdministrativeArea {
-                    cityName = city
-                }
-                // Zip code
-                if let zip = placeMark.isoCountryCode {
-                    postName = zip
-                }
-                // Country
-                if let country = placeMark.country {
-                    countryName = country
-                }
-                
-                print("TAP: \(streetName), \(cityName), \(postName), \(countryName)")
-                
-                let place = MKPlacemark(coordinate: coordinate, addressDictionary: [CNPostalAddressStreetKey: streetName, CNPostalAddressCityKey: cityName, CNPostalAddressPostalCodeKey: postName, CNPostalAddressCountryKey: countryName])
-                
-                self.dropPinZoomIn(placemark: place)
-            })
+            //mapView.removeAnnotations(mapView.annotations)
             
         }
     }
